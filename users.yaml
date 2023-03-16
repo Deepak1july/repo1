@@ -1,0 +1,40 @@
+---
+ - name: "Create users and groups"
+   hosts: stapp02
+   tasks:
+    - user:
+       name: {{ item }}
+       state: present
+      loop:
+       - rob
+       - david
+       - joy
+       - tim
+       - ray
+       - jim
+       - mark
+    - group:
+       name: {{ item }}
+       state: present
+      loop:
+       - admins
+       - developers
+    - ansible.builtin.user:
+       name: {{ item }}
+       shell: /bin/bash
+       groups: admins
+       append: yes
+      loop:
+       - rob
+       - david
+       - joy
+    - ansible.builtin.user:
+       name: {{ item }}
+       shell: /bin/bash
+       groups: developers
+       append: yes
+      loop:
+       - tim
+       - ray
+       - jim
+       - mark
