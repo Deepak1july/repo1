@@ -4,14 +4,14 @@
    become: yes
    tasks:
     - group:
-       name: {{ item }}
+       name: "{{ item }}"
        state: present
       loop:
        - admins
        - developers
     - user:
        name: "{{ item }}"
-       passwrod: "{{'dCV3szSGNA'|passwrod_hash('sha512')}}" 
+       password: "{{'dCV3szSGNA'|password_hash('sha512')}}" 
        groups: admins,wheel
        state: present
       loop:
@@ -20,7 +20,7 @@
        - joy
     - user:
        name: "{{ item }}"
-       password: "{{'BruCStnMT5'|passwrod_hash('sha512'))}}"
+       password: "{{'BruCStnMT5'|password_hash('sha512')}}"
        groups: developers
        state: present
        home: "/var/www/{{ item }}"
